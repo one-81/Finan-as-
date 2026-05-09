@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Clientes</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+
+.card {
+    background: #1d1d1d;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #00b894;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.cliente {
+    background: #2b2b2b;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.delete {
+    background: red;
+}
+
+.total {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Controle Financeiro</h1>
+
+<div class="card">
+<div class="total" id="total">Total: R$ 0</div>
+
+<input type="text" id="nome" placeholder="Nome do cliente">
+<input type="number" id="valor" placeholder="Valor">
+<input type="date" id="vencimento">
+
+<button onclick="salvarCliente()">Salvar Cliente</button>
+</div>
+
+<div id="listaClientes"></div>
+
+</div>
+
+<script>
+let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+
+function salvarCliente() {
+    const nome = document.getElementById('nome').value;
+    const valor = document.getElementById('valor').value;
+    const vencimento = document.getElementById('vencimento').value;
+
+    if (!nome || !valor || !vencimento) {
+        alert('Preencha tudo');
+        return;
+    }
+
+    clientes.push({
+        nome,
+        valor,
+        vencimento,
+        notificado: false
+    });
+
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+
+    document.getElementById('nome').value = '';
+    document.getElementById('valor').value = '';
+    document.getElementById('vencimento').value = '';
+
+    renderizarClientes();
+}
+
+function renderizarClientes() {
+    const lista = document.getElementById('listaClientes');
+    lista.innerHTML = '';
+
+    let total = 0;
+
+    clientes.forEach((cliente, index) => {
+        total += Number(cliente.valor);
+
+        lista.innerHTML += `
+            <div class="cliente">
+                <h3>${cliente.nome}</h3>
+                <p>Valor: R$ ${cliente.valor}</p>
+                <p>Vencimento: ${cliente.vencimento}</p>
+                <button class="delete" onclick="deletarCliente(${index})">Excluir</button>
+            </div>
+        `;
+    });
+
+    document.getElementById('total').innerHTML = `Total: R$ ${total}`;
+}
+
+function deletarCliente(index) {
+    clientes.splice(index, 1);
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+    renderizarClientes();
+}
+
+function pedirPermissao() {
+    if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+    }
+}
+
+function verificarVencimentos() {
+    const agora = new Date();
+    const hora = agora.getHours();
+    const minutos = agora.getMinutes();
+
+    clientes.forEach(cliente => {
+        const hoje = new Date().toISOString().split('T')[0];
+
+        if (
+            cliente.vencimento === hoje &&
+            hora === 10 &&
+            minutos === 0 &&
+            !cliente.notificado
+        ) {
+            new Notification('Cliente vencendo hoje!', {
+                body: `${cliente.nome} - R$ ${cliente.valor}`
+            });
+
+            cliente.notificado = true;
+            localStorage.setItem('clientes', JSON.stringify(clientes));
+        }
+    });
+}
+
+pedirPermissao();
+renderizarClientes();
+
+setInterval(verificarVencimentos, 60000);
+</script>
+
+</body>
+</html>
