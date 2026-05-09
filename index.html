@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema Avançado de Controle de Clientes</title>
+<title>📺 Controle IPTV - Gestão de Créditos e Clientes</title>
 
 <style>
 * {
@@ -14,89 +14,100 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #0f0f0f;
+    color: #fff;
     padding: 20px;
-    min-height: 100vh;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
-h1 {
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.header p {
+    opacity: 0.9;
+    font-size: 14px;
 }
 
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.stat-card {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-}
-
-.stat-card h3 {
-    font-size: 0.9em;
-    opacity: 0.9;
-    margin-bottom: 10px;
-}
-
-.stat-card .number {
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.card {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
     margin-bottom: 25px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.stat-card {
+    background: #1e1e1e;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #333;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
+.stat-card .number {
+    font-size: 28px;
     font-weight: bold;
+    color: #667eea;
+}
+
+.stat-card .label {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #333;
+}
+
+.card h2 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: #667eea;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
 }
 
 input, select, textarea {
     width: 100%;
     padding: 12px;
+    background: #2a2a2a;
+    border: 1px solid #444;
     border-radius: 8px;
-    border: none;
-    background: rgba(255,255,255,0.9);
+    color: #fff;
     font-size: 14px;
 }
 
-textarea {
-    resize: vertical;
-    min-height: 80px;
+input:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
 }
 
 button {
     padding: 12px 24px;
+    background: #667eea;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -105,175 +116,218 @@ button {
     transition: all 0.3s;
 }
 
-.btn-primary {
-    background: #00b894;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #00a884;
-    transform: translateY(-2px);
+button:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
 }
 
 .btn-danger {
-    background: #ff4757;
-    color: white;
+    background: #e53e3e;
 }
 
 .btn-danger:hover {
-    background: #ff3838;
+    background: #c53030;
+}
+
+.btn-success {
+    background: #48bb78;
 }
 
 .btn-warning {
-    background: #ffa502;
-    color: white;
-}
-
-.btn-info {
-    background: #1e90ff;
-    color: white;
+    background: #ed8936;
 }
 
 .btn-sm {
-    padding: 5px 10px;
+    padding: 6px 12px;
     font-size: 12px;
-    margin: 2px;
 }
 
-.clientes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
+.btn-info {
+    background: #4299e1;
 }
 
-.cliente-card {
-    background: rgba(255,255,255,0.95);
-    color: #333;
-    padding: 20px;
-    border-radius: 15px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-.cliente-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.cliente-card.vencido {
-    border-left: 5px solid #ff4757;
-    background: #fff5f5;
-}
-
-.cliente-card.hoje {
-    border-left: 5px solid #ffa502;
-    background: #fffef5;
-}
-
-.cliente-card h3 {
-    margin-bottom: 10px;
-    color: #667eea;
-}
-
-.cliente-card p {
-    margin: 8px 0;
-    font-size: 14px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.badge-mensal {
-    background: #3498db;
-    color: white;
-}
-
-.badge-vitalicio {
-    background: #e74c3c;
-    color: white;
-}
-
-.status {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.status-pago {
-    background: #00b894;
-}
-
-.status-pendente {
-    background: #ff4757;
-}
-
-.acoes {
-    margin-top: 15px;
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.filtros {
+.filters {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
-.filtro-btn {
-    background: rgba(255,255,255,0.2);
+.filter-btn {
+    background: #2a2a2a;
     padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
+    font-size: 13px;
     transition: all 0.3s;
 }
 
-.filtro-btn.active {
-    background: #00b894;
+.filter-btn.active {
+    background: #667eea;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    justify-content: center;
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+/* Vendas (Créditos) */
+.vendas-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.venda-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333;
+    transition: all 0.3s;
+}
+
+.venda-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.venda-header {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.venda-header h3 {
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.venda-info {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-ativo {
+    background: #48bb78;
+    color: white;
+}
+
+.status-expirado {
+    background: #e53e3e;
+    color: white;
+}
+
+.status-proximo {
+    background: #ed8936;
+    color: white;
+}
+
+.clientes-lista {
+    padding: 15px 20px;
+    border-top: 1px solid #333;
+}
+
+.cliente-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #252525;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.cliente-row:last-child {
+    margin-bottom: 0;
+}
+
+.cliente-info {
+    flex: 1;
+}
+
+.cliente-nome {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.cliente-detalhes {
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tela-badge {
+    background: #667eea;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.cliente-acoes {
+    display: flex;
+    gap: 8px;
+}
+
+.acoes-venda {
+    padding: 15px 20px;
+    border-top: 1px solid #333;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #151515;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.section-title {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.modal-content {
-    background: white;
-    color: #333;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 500px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
 @media (max-width: 768px) {
-    .clientes-grid {
-        grid-template-columns: 1fr;
+    .venda-header {
+        flex-direction: column;
+        align-items: stretch;
     }
     
-    .dashboard {
-        grid-template-columns: repeat(2, 1fr);
+    .cliente-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .cliente-acoes {
+        justify-content: center;
     }
 }
 </style>
@@ -281,444 +335,523 @@ button {
 <body>
 
 <div class="container">
-    <h1>📊 Sistema Avançado de Controle de Clientes</h1>
+    <div class="header">
+        <h1>📺 Controle IPTV - Gestão de Créditos</h1>
+        <p>Cadastre vendas com 2 clientes por crédito | Controle de vencimentos e lembretes</p>
+    </div>
 
     <div class="dashboard">
         <div class="stat-card">
-            <h3>Total de Clientes</h3>
+            <div class="number" id="totalVendas">0</div>
+            <div class="label">Total de Vendas</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" id="creditosAtivos">0</div>
+            <div class="label">Créditos Ativos</div>
+        </div>
+        <div class="stat-card">
             <div class="number" id="totalClientes">0</div>
+            <div class="label">Clientes Atendidos</div>
         </div>
         <div class="stat-card">
-            <h3>Vencendo Hoje</h3>
-            <div class="number" id="vencendoHoje">0</div>
-        </div>
-        <div class="stat-card">
-            <h3>Vencidos</h3>
-            <div class="number" id="vencidos">0</div>
-        </div>
-        <div class="stat-card">
-            <h3>Receita Mensal</h3>
-            <div class="number" id="receitaMensal">R$ 0</div>
+            <div class="number" id="faturamentoMes">0</div>
+            <div class="label">Faturamento Mês (R$)</div>
         </div>
     </div>
 
+    <!-- Formulário de Nova Venda -->
     <div class="card">
-        <h2>➕ Novo Cliente</h2>
-        <form id="clienteForm">
-            <div class="form-group">
-                <label>Nome do Cliente *</label>
-                <input type="text" id="nome" required placeholder="Nome completo">
-            </div>
-
-            <div class="form-group">
-                <label>Telefone (com DDD) *</label>
-                <input type="tel" id="telefone" required placeholder="(11) 99999-9999">
-                <small>Ex: 11999999999 (apenas números)</small>
-            </div>
-
-            <div class="form-group">
-                <label>Valor (R$) *</label>
-                <input type="number" id="valor" step="0.01" required placeholder="0.00">
-            </div>
-
-            <div class="form-group">
-                <label>Tipo de Plano *</label>
-                <select id="tipoPlano">
-                    <option value="mensal">📅 Mensal</option>
-                    <option value="vitalicio">♾️ Vitalício</option>
-                </select>
-            </div>
-
-            <div class="form-group" id="dataVencimentoGroup">
-                <label>Data de Vencimento *</label>
-                <input type="date" id="vencimento" required>
-            </div>
-
-            <div class="form-group">
-                <label>Observações</label>
-                <textarea id="observacoes" placeholder="Informações adicionais..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-primary">💾 Salvar Cliente</button>
-        </form>
-    </div>
-
-    <div class="filtros">
-        <div class="filtro-btn active" data-filtro="todos">📋 Todos</div>
-        <div class="filtro-btn" data-filtro="hoje">⚠️ Vence Hoje</div>
-        <div class="filtro-btn" data-filtro="vencido">🔴 Vencidos</div>
-        <div class="filtro-btn" data-filtro="mensal">📅 Mensais</div>
-        <div class="filtro-btn" data-filtro="vitalicio">♾️ Vitalícios</div>
-    </div>
-
-    <div id="listaClientes" class="clientes-grid"></div>
-</div>
-
-<!-- Modal para envio de mensagem -->
-<div id="modalMensagem" class="modal">
-    <div class="modal-content">
-        <h2>📱 Enviar Mensagem</h2>
-        <div class="form-group">
-            <label>Cliente:</label>
-            <p id="clienteNome" style="font-weight: bold;"></p>
-        </div>
-        <div class="form-group">
-            <label>Template de Mensagem:</label>
-            <select id="templateMensagem" onchange="aplicarTemplate()">
-                <option value="">Selecione um template</option>
-                <option value="lembrete">Lembrete de Pagamento</option>
-                <option value="atraso">Aviso de Atraso</option>
-                <option value="negociacao">Proposta de Negociação</option>
+        <h2>🆕 Nova Venda / Novo Crédito</h2>
+        <div class="form-grid">
+            <input type="text" id="cliente1" placeholder="Cliente 1 (Tela 1) *" required>
+            <input type="text" id="cliente2" placeholder="Cliente 2 (Tela 2) *" required>
+            <input type="tel" id="telefone1" placeholder="Telefone Cliente 1">
+            <input type="tel" id="telefone2" placeholder="Telefone Cliente 2">
+            <input type="number" id="valor" placeholder="Valor da Venda (R$) *" step="0.01">
+            <input type="date" id="dataVenda" placeholder="Data da Venda">
+            <input type="number" id="dias" placeholder="Quantos dias? *" value="30">
+            <select id="plano">
+                <option value="30">📅 30 Dias</option>
+                <option value="60">📅 60 Dias</option>
+                <option value="90">📅 90 Dias</option>
+                <option value="180">📅 180 Dias</option>
+                <option value="365">📅 365 Dias (1 Ano)</option>
             </select>
+            <textarea id="obs" placeholder="Observações (opcional)" rows="2"></textarea>
         </div>
-        <div class="form-group">
-            <label>Sua Mensagem:</label>
-            <textarea id="mensagemTexto" rows="5" placeholder="Digite sua mensagem..."></textarea>
-        </div>
-        <div class="form-group">
-            <button onclick="enviarWhatsApp()" class="btn-primary">📱 Enviar WhatsApp</button>
-            <button onclick="enviarSMS()" class="btn-info">✉️ Enviar SMS</button>
-            <button onclick="fecharModal()" class="btn-danger">❌ Cancelar</button>
-        </div>
+        <button onclick="novaVenda()" style="margin-top: 15px; width: 100%;">💾 Salvar Venda (2 Clientes)</button>
     </div>
+
+    <!-- Busca e Filtros -->
+    <div class="search-box">
+        <input type="text" id="busca" placeholder="🔍 Buscar cliente, venda ou data..." onkeyup="filtrarVendas()">
+    </div>
+
+    <div class="filters">
+        <div class="filter-btn active" data-filtro="todas" onclick="setFiltro('todas')">📋 Todas Vendas</div>
+        <div class="filter-btn" data-filtro="ativas" onclick="setFiltro('ativas')">✅ Ativas</div>
+        <div class="filter-btn" data-filtro="expiradas" onclick="setFiltro('expiradas')">❌ Expiradas</div>
+        <div class="filter-btn" data-filtro="proximo" onclick="setFiltro('proximo')">⚠️ Vence em 7 dias</div>
+        <div class="filter-btn" data-filtro="este-mes" onclick="setFiltro('este-mes')">📅 Vendas este mês</div>
+    </div>
+
+    <!-- Lista de Vendas -->
+    <div class="section-title">
+        <span>📦 Vendas / Créditos</span>
+        <span style="font-size: 12px; color: #aaa;">▼ Clique no cabeçalho para expandir/ recolher</span>
+    </div>
+    <div id="listaVendas" class="vendas-grid"></div>
 </div>
 
 <script>
-let clientes = JSON.parse(localStorage.getItem('clientes_avancado')) || [];
-let filtroAtual = 'todos';
-let clienteSelecionado = null;
+// Estrutura de dados
+let vendas = JSON.parse(localStorage.getItem('iptv_vendas')) || [];
 
-// Inicialização
+// Inicializar
 function init() {
-    renderizarClientes();
+    renderizarVendas();
     atualizarDashboard();
-    configurarEventos();
     verificarVencimentos();
-    setInterval(verificarVencimentos, 60000);
-    solicitarPermissaoNotificacao();
+    setInterval(verificarVencimentos, 3600000); // Verifica a cada hora
+    solicitarNotificacao();
 }
 
-// Configurar eventos
-function configurarEventos() {
-    document.getElementById('clienteForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        salvarCliente();
-    });
-
-    document.getElementById('tipoPlano').addEventListener('change', function() {
-        const grupoData = document.getElementById('dataVencimentoGroup');
-        if (this.value === 'vitalicio') {
-            grupoData.style.display = 'none';
-            document.getElementById('vencimento').required = false;
-        } else {
-            grupoData.style.display = 'block';
-            document.getElementById('vencimento').required = true;
-        }
-    });
-
-    document.querySelectorAll('.filtro-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            filtroAtual = this.dataset.filtro;
-            renderizarClientes();
-        });
-    });
-}
-
-// Salvar cliente
-function salvarCliente() {
-    const nome = document.getElementById('nome').value;
-    const telefone = document.getElementById('telefone').value;
+// Nova venda (2 clientes por crédito)
+function novaVenda() {
+    const cliente1 = document.getElementById('cliente1').value.trim();
+    const cliente2 = document.getElementById('cliente2').value.trim();
+    const telefone1 = document.getElementById('telefone1').value.trim();
+    const telefone2 = document.getElementById('telefone2').value.trim();
     const valor = parseFloat(document.getElementById('valor').value);
-    const tipoPlano = document.getElementById('tipoPlano').value;
-    let vencimento = document.getElementById('vencimento').value;
-    const observacoes = document.getElementById('observacoes').value;
+    let dataVenda = document.getElementById('dataVenda').value;
+    const diasPlano = parseInt(document.getElementById('plano').value) || parseInt(document.getElementById('dias').value);
+    const obs = document.getElementById('obs').value;
 
-    if (!nome || !telefone || !valor) {
-        alert('Por favor, preencha os campos obrigatórios!');
+    if (!cliente1 || !cliente2 || !valor) {
+        alert('❌ Preencha: Nome dos 2 clientes e valor da venda!');
         return;
     }
 
-    if (tipoPlano === 'mensal' && !vencimento) {
-        alert('Para planos mensais, a data de vencimento é obrigatória!');
-        return;
+    if (!dataVenda) {
+        dataVenda = new Date().toISOString().split('T')[0];
     }
 
-    const novoCliente = {
+    // Calcular data de expiração
+    const dataExpiracao = new Date(dataVenda);
+    dataExpiracao.setDate(dataExpiracao.getDate() + diasPlano);
+
+    const venda = {
         id: Date.now(),
-        nome,
-        telefone: formatarTelefone(telefone),
-        valor,
-        tipoPlano,
-        vencimento: tipoPlano === 'mensal' ? vencimento : null,
-        observacoes,
-        status: 'pendente',
-        dataCadastro: new Date().toISOString(),
-        historicoPagamentos: [],
-        notificadoHoje: false
+        dataVenda: dataVenda,
+        valor: valor,
+        diasPlano: diasPlano,
+        dataExpiracao: dataExpiracao.toISOString().split('T')[0],
+        observacoes: obs,
+        status: 'ativo',
+        clientes: [
+            {
+                nome: cliente1,
+                telefone: telefone1,
+                tela: 1,
+                notificado: false
+            },
+            {
+                nome: cliente2,
+                telefone: telefone2,
+                tela: 2,
+                notificado: false
+            }
+        ],
+        pagamentos: [{
+            data: dataVenda,
+            valor: valor,
+            tipo: 'venda'
+        }]
     };
 
-    clientes.push(novoCliente);
-    localStorage.setItem('clientes_avancado', JSON.stringify(clientes));
-    
-    document.getElementById('clienteForm').reset();
-    renderizarClientes();
+    vendas.unshift(venda); // Adiciona no início
+    salvarDados();
+    limparFormulario();
+    renderizarVendas();
     atualizarDashboard();
     
-    alert('Cliente cadastrado com sucesso!');
+    alert(`✅ Venda registrada!\n📺 Crédito: ${cliente1} e ${cliente2}\n📅 Expira em: ${formatarData(venda.dataExpiracao)}`);
 }
 
-// Renderizar clientes com filtros
-function renderizarClientes() {
-    const lista = document.getElementById('listaClientes');
-    let clientesFiltrados = filtrarClientes();
+// Limpar formulário
+function limparFormulario() {
+    document.getElementById('cliente1').value = '';
+    document.getElementById('cliente2').value = '';
+    document.getElementById('telefone1').value = '';
+    document.getElementById('telefone2').value = '';
+    document.getElementById('valor').value = '';
+    document.getElementById('dataVenda').value = '';
+    document.getElementById('obs').value = '';
+    document.getElementById('plano').value = '30';
+}
+
+// Renderizar lista de vendas
+let vendasExpandidas = new Set();
+
+function renderizarVendas() {
+    const container = document.getElementById('listaVendas');
+    let vendasFiltradas = filtrarVendas();
+    const hoje = new Date().toISOString().split('T')[0];
     
-    if (clientesFiltrados.length === 0) {
-        lista.innerHTML = '<div class="card" style="text-align: center;">Nenhum cliente encontrado</div>';
+    if (vendasFiltradas.length === 0) {
+        container.innerHTML = '<div class="empty-state">📭 Nenhuma venda encontrada<br><small>Cadastre sua primeira venda acima</small></div>';
         return;
     }
-
-    lista.innerHTML = clientesFiltrados.map(cliente => `
-        <div class="cliente-card ${getStatusClass(cliente)}">
-            <div class="status ${cliente.status === 'pago' ? 'status-pago' : 'status-pendente'}"></div>
-            <h3>
-                ${cliente.nome}
-                <span class="badge ${cliente.tipoPlano === 'mensal' ? 'badge-mensal' : 'badge-vitalicio'}">
-                    ${cliente.tipoPlano === 'mensal' ? '📅 Mensal' : '♾️ Vitalício'}
-                </span>
-            </h3>
-            <p>💰 Valor: <strong>R$ ${cliente.valor.toFixed(2)}</strong></p>
-            ${cliente.tipoPlano === 'mensal' ? `<p>📆 Vencimento: ${formatarData(cliente.vencimento)}</p>` : '<p>♾️ Sem vencimento (Vitalício)</p>'}
-            <p>📱 Telefone: ${cliente.telefone}</p>
-            ${cliente.observacoes ? `<p>📝 Obs: ${cliente.observacoes}</p>` : ''}
-            <p>📅 Cadastro: ${formatarData(cliente.dataCadastro)}</p>
-            
-            <div class="acoes">
-                ${cliente.status === 'pendente' ? `<button class="btn-primary btn-sm" onclick="marcarPago(${cliente.id})">✅ Marcar Pago</button>` : '<button class="btn-info btn-sm" disabled>✅ Pago</button>'}
-                ${cliente.tipoPlano === 'mensal' ? `<button class="btn-info btn-sm" onclick="adiarVencimento(${cliente.id})">⏰ Adiar Venc.</button>` : ''}
-                <button class="btn-warning btn-sm" onclick="abrirModalMensagem(${cliente.id})">💬 Enviar Msg</button>
-                <button class="btn-danger btn-sm" onclick="deletarCliente(${cliente.id})">🗑️ Excluir</button>
+    
+    container.innerHTML = vendasFiltradas.map(venda => {
+        const estaExpandida = vendasExpandidas.has(venda.id);
+        const diasRestantes = calcularDiasRestantes(venda.dataExpiracao);
+        let statusClass = 'status-ativo';
+        let statusText = '✅ Ativo';
+        
+        if (diasRestantes < 0) {
+            statusClass = 'status-expirado';
+            statusText = '❌ Expirado';
+        } else if (diasRestantes <= 7) {
+            statusClass = 'status-proximo';
+            statusText = `⚠️ Expira em ${diasRestantes} dias`;
+        } else {
+            statusText = `✅ Expira em ${diasRestantes} dias`;
+        }
+        
+        return `
+            <div class="venda-card">
+                <div class="venda-header" onclick="toggleVenda(${venda.id})">
+                    <h3>
+                        🎫 Venda #${venda.id.toString().slice(-6)}
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </h3>
+                    <div class="venda-info">
+                        <span>💰 R$ ${venda.valor.toFixed(2)}</span>
+                        <span>📅 ${formatarData(venda.dataVenda)}</span>
+                        <span>⏰ ${venda.diasPlano} dias</span>
+                        <span>📺 2 clientes</span>
+                    </div>
+                </div>
+                
+                ${estaExpandida ? `
+                    <div class="clientes-lista">
+                        <div style="margin-bottom: 10px; font-size: 13px; color: #aaa;">
+                            📍 Expira em: ${formatarData(venda.dataExpiracao)}
+                            ${venda.observacoes ? `<br>📝 Obs: ${venda.observacoes}` : ''}
+                        </div>
+                        
+                        ${venda.clientes.map((cliente, idx) => {
+                            const isVencido = diasRestantes < 0;
+                            const isProximo = diasRestantes <= 7 && diasRestantes >= 0;
+                            return `
+                                <div class="cliente-row" style="${isVencido ? 'opacity: 0.7;' : ''}">
+                                    <div class="cliente-info">
+                                        <div class="cliente-nome">
+                                            🖥️ Tela ${cliente.tela}: ${cliente.nome}
+                                            <span class="tela-badge">Tela ${cliente.tela}</span>
+                                        </div>
+                                        <div class="cliente-detalhes">
+                                            ${cliente.telefone ? `<span>📱 ${cliente.telefone}</span>` : '<span>📱 Sem telefone</span>'}
+                                            ${isVencido ? '<span style="color: #e53e3e;">🔴 EXPIRADO</span>' : ''}
+                                            ${isProximo && !isVencido ? '<span style="color: #ed8936;">⚠️ VENCE EM BREVE</span>' : ''}
+                                        </div>
+                                    </div>
+                                    <div class="cliente-acoes">
+                                        <button class="btn-info btn-sm" onclick="enviarMensagem(${venda.id}, ${idx})">💬 WhatsApp</button>
+                                        <button class="btn-warning btn-sm" onclick="renovarCliente(${venda.id}, ${idx})">🔄 Renovar</button>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    
+                    <div class="acoes-venda">
+                        <button class="btn-success btn-sm" onclick="renovarVendaCompleta(${venda.id})">🔄 Renovar Crédito (2 clientes)</button>
+                        <button class="btn-warning btn-sm" onclick="adicionarDias(${venda.id})">⏰ + Dias</button>
+                        <button class="btn-info btn-sm" onclick="enviarMensagemParaAmbos(${venda.id})">📢 Enviar para ambos</button>
+                        <button class="btn-danger btn-sm" onclick="deletarVenda(${venda.id})">🗑️ Excluir Venda</button>
+                    </div>
+                ` : ''}
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
-// Filtrar clientes
-function filtrarClientes() {
+// Alternar expansão
+function toggleVenda(id) {
+    if (vendasExpandidas.has(id)) {
+        vendasExpandidas.delete(id);
+    } else {
+        vendasExpandidas.add(id);
+    }
+    renderizarVendas();
+}
+
+// Calcular dias restantes
+function calcularDiasRestantes(dataExpiracao) {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    const expiracao = new Date(dataExpiracao);
+    expiracao.setHours(0, 0, 0, 0);
+    const diffTime = expiracao - hoje;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
+// Renovar venda completa
+function renovarVendaCompleta(id) {
+    const venda = vendas.find(v => v.id === id);
+    if (venda) {
+        const dias = prompt('Quantos dias adicionar?', venda.diasPlano);
+        if (dias && !isNaN(dias)) {
+            const novaExpiracao = new Date(venda.dataExpiracao);
+            novaExpiracao.setDate(novaExpiracao.getDate() + parseInt(dias));
+            venda.dataExpiracao = novaExpiracao.toISOString().split('T')[0];
+            
+            // Registrar renovação
+            venda.pagamentos.push({
+                data: new Date().toISOString().split('T')[0],
+                valor: venda.valor,
+                tipo: 'renovacao'
+            });
+            
+            salvarDados();
+            renderizarVendas();
+            atualizarDashboard();
+            alert(`✅ Crédito renovado!\n📅 Nova expiração: ${formatarData(venda.dataExpiracao)}`);
+        }
+    }
+}
+
+// Renovar cliente individual
+function renovarCliente(idVenda, idxCliente) {
+    const venda = vendas.find(v => v.id === idVenda);
+    if (venda) {
+        const novoValor = prompt(`Renovar ${venda.clientes[idxCliente].nome}\nValor da renovação (R$):`, (venda.valor / 2).toFixed(2));
+        if (novoValor && !isNaN(novoValor)) {
+            const dias = prompt('Quantos dias adicionar?', venda.diasPlano);
+            if (dias && !isNaN(dias)) {
+                // Adicionar dias à venda inteira
+                const novaExpiracao = new Date(venda.dataExpiracao);
+                novaExpiracao.setDate(novaExpiracao.getDate() + parseInt(dias));
+                venda.dataExpiracao = novaExpiracao.toISOString().split('T')[0];
+                
+                venda.pagamentos.push({
+                    data: new Date().toISOString().split('T')[0],
+                    valor: parseFloat(novoValor),
+                    tipo: `renovacao_${venda.clientes[idxCliente].nome}`,
+                    cliente: venda.clientes[idxCliente].nome
+                });
+                
+                salvarDados();
+                renderizarVendas();
+                atualizarDashboard();
+                alert(`✅ ${venda.clientes[idxCliente].nome} renovado!\n📅 Expira: ${formatarData(venda.dataExpiracao)}`);
+            }
+        }
+    }
+}
+
+// Adicionar dias à venda
+function adicionarDias(id) {
+    const venda = vendas.find(v => v.id === id);
+    if (venda) {
+        const dias = prompt('Quantos dias adicionar?', '30');
+        if (dias && !isNaN(dias)) {
+            const novaExpiracao = new Date(venda.dataExpiracao);
+            novaExpiracao.setDate(novaExpiracao.getDate() + parseInt(dias));
+            venda.dataExpiracao = novaExpiracao.toISOString().split('T')[0];
+            salvarDados();
+            renderizarVendas();
+            atualizarDashboard();
+            alert(`✅ +${dias} dias adicionados!\n📅 Nova expiração: ${formatarData(venda.dataExpiracao)}`);
+        }
+    }
+}
+
+// Enviar mensagem para cliente específico
+function enviarMensagem(idVenda, idxCliente) {
+    const venda = vendas.find(v => v.id === idVenda);
+    if (venda) {
+        const cliente = venda.clientes[idxCliente];
+        const diasRestantes = calcularDiasRestantes(venda.dataExpiracao);
+        
+        let mensagem = `📺 *IPTV - AVISO IMPORTANTE*\n\nOlá *${cliente.nome}*! `;
+        
+        if (diasRestantes < 0) {
+            mensagem += `Seu acesso EXPIROU há ${Math.abs(diasRestantes)} dias.\n\n💰 Para renovar, entre em contato!\n🎯 Valor: R$ ${(venda.valor / 2).toFixed(2)} por ${venda.diasPlano} dias.`;
+        } else if (diasRestantes <= 7) {
+            mensagem += `Seu acesso VENCE em ${diasRestantes} dias (${formatarData(venda.dataExpiracao)}).\n\n💰 Faça a renovação por apenas R$ ${(venda.valor / 2).toFixed(2)} para continuar assistindo!`;
+        } else {
+            mensagem += `Seu acesso está ATIVO até ${formatarData(venda.dataExpiracao)} (${diasRestantes} dias restantes).\n\nAproveite a programação! 🎬`;
+        }
+        
+        mensagem += `\n\n📞 Dúvidas? Me chame aqui mesmo!\n\n*Atenciosamente*`;
+        
+        if (cliente.telefone) {
+            const telefone = cliente.telefone.replace(/\D/g, '');
+            if (telefone.length >= 10) {
+                window.open(`https://wa.me/55${telefone}?text=${encodeURIComponent(mensagem)}`, '_blank');
+            } else {
+                alert('❌ Telefone inválido!');
+            }
+        } else {
+            alert(`❌ ${cliente.nome} não tem telefone cadastrado!`);
+        }
+    }
+}
+
+// Enviar mensagem para ambos clientes
+function enviarMensagemParaAmbos(idVenda) {
+    const venda = vendas.find(v => v.id === idVenda);
+    if (venda) {
+        venda.clientes.forEach((cliente, idx) => {
+            if (cliente.telefone) {
+                setTimeout(() => enviarMensagem(idVenda, idx), idx * 500);
+            }
+        });
+        alert('📱 Abrindo WhatsApp para ambos clientes...');
+    }
+}
+
+// Deletar venda
+function deletarVenda(id) {
+    if (confirm('⚠️ Tem certeza? Isso removerá os 2 clientes e todo histórico!')) {
+        vendas = vendas.filter(v => v.id !== id);
+        vendasExpandidas.delete(id);
+        salvarDados();
+        renderizarVendas();
+        atualizarDashboard();
+        alert('🗑️ Venda removida!');
+    }
+}
+
+// Filtrar vendas
+let filtroAtual = 'todas';
+let termoBusca = '';
+
+function filtrarVendas() {
+    let filtradas = [...vendas];
     const hoje = new Date().toISOString().split('T')[0];
     
-    switch(filtroAtual) {
-        case 'hoje':
-            return clientes.filter(c => c.tipoPlano === 'mensal' && c.vencimento === hoje && c.status !== 'pago');
-        case 'vencido':
-            return clientes.filter(c => c.tipoPlano === 'mensal' && c.vencimento < hoje && c.status !== 'pago');
-        case 'mensal':
-            return clientes.filter(c => c.tipoPlano === 'mensal');
-        case 'vitalicio':
-            return clientes.filter(c => c.tipoPlano === 'vitalicio');
-        default:
-            return clientes;
-    }
-}
-
-// Obter classe de status
-function getStatusClass(cliente) {
-    if (cliente.tipoPlano !== 'mensal') return '';
-    const hoje = new Date().toISOString().split('T')[0];
-    if (cliente.vencimento === hoje && cliente.status !== 'pago') return 'hoje';
-    if (cliente.vencimento < hoje && cliente.status !== 'pago') return 'vencido';
-    return '';
-}
-
-// Marcar como pago
-function marcarPago(id) {
-    const cliente = clientes.find(c => c.id === id);
-    if (cliente) {
-        cliente.status = 'pago';
-        cliente.historicoPagamentos.push({
-            data: new Date().toISOString(),
-            valor: cliente.valor
+    // Filtro por status
+    if (filtroAtual === 'ativas') {
+        filtradas = filtradas.filter(v => calcularDiasRestantes(v.dataExpiracao) > 0);
+    } else if (filtroAtual === 'expiradas') {
+        filtradas = filtradas.filter(v => calcularDiasRestantes(v.dataExpiracao) <= 0);
+    } else if (filtroAtual === 'proximo') {
+        filtradas = filtradas.filter(v => {
+            const dias = calcularDiasRestantes(v.dataExpiracao);
+            return dias > 0 && dias <= 7;
         });
-        
-        // Para clientes mensais, gerar próximo vencimento
-        if (cliente.tipoPlano === 'mensal') {
-            const proximoVencimento = new Date(cliente.vencimento);
-            proximoVencimento.setMonth(proximoVencimento.getMonth() + 1);
-            cliente.vencimento = proximoVencimento.toISOString().split('T')[0];
-            cliente.status = 'pendente';
-            cliente.notificadoHoje = false;
-        }
-        
-        localStorage.setItem('clientes_avancado', JSON.stringify(clientes));
-        renderizarClientes();
-        atualizarDashboard();
-        alert('Pagamento registrado com sucesso!');
+    } else if (filtroAtual === 'este-mes') {
+        filtradas = filtradas.filter(v => {
+            const dataVenda = new Date(v.dataVenda);
+            const agora = new Date();
+            return dataVenda.getMonth() === agora.getMonth() && dataVenda.getFullYear() === agora.getFullYear();
+        });
     }
+    
+    // Busca
+    if (termoBusca) {
+        filtradas = filtradas.filter(v => {
+            const buscaLower = termoBusca.toLowerCase();
+            const clienteMatch = v.clientes.some(c => c.nome.toLowerCase().includes(buscaLower));
+            const dataMatch = v.dataVenda.includes(termoBusca);
+            const idMatch = v.id.toString().includes(termoBusca);
+            return clienteMatch || dataMatch || idMatch;
+        });
+    }
+    
+    return filtradas;
 }
 
-// Adiar vencimento
-function adiarVencimento(id) {
-    const dias = prompt('Quantos dias deseja adiar?', '7');
-    if (dias && !isNaN(dias)) {
-        const cliente = clientes.find(c => c.id === id);
-        if (cliente) {
-            const novaData = new Date(cliente.vencimento);
-            novaData.setDate(novaData.getDate() + parseInt(dias));
-            cliente.vencimento = novaData.toISOString().split('T')[0];
-            localStorage.setItem('clientes_avancado', JSON.stringify(clientes));
-            renderizarClientes();
-            alert(`Vencimento adiado para ${formatarData(cliente.vencimento)}`);
+function setFiltro(filtro) {
+    filtroAtual = filtro;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.filtro === filtro) {
+            btn.classList.add('active');
         }
-    }
+    });
+    renderizarVendas();
 }
 
-// Deletar cliente
-function deletarCliente(id) {
-    if (confirm('Tem certeza que deseja excluir este cliente?')) {
-        clientes = clientes.filter(c => c.id !== id);
-        localStorage.setItem('clientes_avancado', JSON.stringify(clientes));
-        renderizarClientes();
-        atualizarDashboard();
-    }
+function filtrarVendas() {
+    termoBusca = document.getElementById('busca').value;
+    renderizarVendas();
 }
 
 // Atualizar dashboard
 function atualizarDashboard() {
-    const hoje = new Date().toISOString().split('T')[0];
-    const total = clientes.length;
-    const vencendoHoje = clientes.filter(c => c.tipoPlano === 'mensal' && c.vencimento === hoje && c.status !== 'pago').length;
-    const vencidos = clientes.filter(c => c.tipoPlano === 'mensal' && c.vencimento < hoje && c.status !== 'pago').length;
+    const totalVendas = vendas.length;
+    const creditosAtivos = vendas.filter(v => calcularDiasRestantes(v.dataExpiracao) > 0).length;
+    const totalClientes = vendas.reduce((sum, v) => sum + v.clientes.length, 0);
     
-    // Calcular receita mensal (apenas mensais)
-    const receitaMensal = clientes
-        .filter(c => c.tipoPlano === 'mensal' && c.status === 'pendente')
-        .reduce((sum, c) => sum + c.valor, 0);
-    
-    document.getElementById('totalClientes').textContent = total;
-    document.getElementById('vencendoHoje').textContent = vencendoHoje;
-    document.getElementById('vencidos').textContent = vencidos;
-    document.getElementById('receitaMensal').textContent = `R$ ${receitaMensal.toFixed(2)}`;
-}
-
-// Abrir modal de mensagem
-function abrirModalMensagem(id) {
-    clienteSelecionado = clientes.find(c => c.id === id);
-    if (clienteSelecionado) {
-        document.getElementById('clienteNome').textContent = clienteSelecionado.nome;
-        document.getElementById('modalMensagem').style.display = 'flex';
-        document.getElementById('mensagemTexto').value = gerarMensagemPadrao(clienteSelecionado);
-    }
-}
-
-// Aplicar template
-function aplicarTemplate() {
-    const template = document.getElementById('templateMensagem').value;
-    let mensagem = '';
-    
-    switch(template) {
-        case 'lembrete':
-            mensagem = `Olá ${clienteSelecionado.nome}! 👋\n\nEste é um lembrete amigável de que seu pagamento no valor de R$ ${clienteSelecionado.valor.toFixed(2)} vence em breve.\n\nFique atento à data de vencimento para evitar atrasos.\n\nAgradecemos pela preferência! 🙏`;
-            break;
-        case 'atraso':
-            mensagem = `Olá ${clienteSelecionado.nome}! ⚠️\n\nIdentificamos que seu pagamento no valor de R$ ${clienteSelecionado.valor.toFixed(2)} está em atraso.\n\nPor favor, regularize sua situação o mais breve possível para evitar transtornos.\n\nEstamos à disposição para negociar! 📞`;
-            break;
-        case 'negociacao':
-            mensagem = `Olá ${clienteSelecionado.nome}! 🤝\n\nGostaríamos de propor uma negociação especial para seu débito no valor de R$ ${clienteSelecionado.valor.toFixed(2)}.\n\nEntre em contato para conhecermos as condições especiais que preparamos para você!\n\nAguardamos seu contato! 📱`;
-            break;
-    }
-    
-    if (mensagem) {
-        document.getElementById('mensagemTexto').value = mensagem;
-    }
-}
-
-// Gerar mensagem padrão
-function gerarMensagemPadrao(cliente) {
-    return `Olá ${cliente.nome}! 👋\n\nSeu pagamento no valor de R$ ${cliente.valor.toFixed(2)} está pendente.\n\nPor favor, entre em contato para regularizar sua situação.\n\nAgradecemos pela atenção!`;
-}
-
-// Enviar WhatsApp
-function enviarWhatsApp() {
-    if (!clienteSelecionado) return;
-    
-    const telefone = clienteSelecionado.telefone.replace(/\D/g, '');
-    const mensagem = encodeURIComponent(document.getElementById('mensagemTexto').value);
-    const url = `https://wa.me/55${telefone}?text=${mensagem}`;
-    
-    window.open(url, '_blank');
-    fecharModal();
-}
-
-// Enviar SMS (via link)
-function enviarSMS() {
-    if (!clienteSelecionado) return;
-    
-    const telefone = clienteSelecionado.telefone.replace(/\D/g, '');
-    const mensagem = encodeURIComponent(document.getElementById('mensagemTexto').value);
-    const url = `sms:${telefone}?body=${mensagem}`;
-    
-    window.location.href = url;
-    fecharModal();
-}
-
-// Fechar modal
-function fecharModal() {
-    document.getElementById('modalMensagem').style.display = 'none';
-    clienteSelecionado = null;
-}
-
-// Verificar vencimentos e enviar notificações
-function verificarVencimentos() {
-    const hoje = new Date().toISOString().split('T')[0];
+    // Faturamento do mês
     const agora = new Date();
-    const hora = agora.getHours();
-    const minutos = agora.getMinutes();
-    
-    clientes.forEach(cliente => {
-        if (cliente.tipoPlano === 'mensal' && cliente.vencimento === hoje && !cliente.notificadoHoje && cliente.status !== 'pago') {
-            // Notificação do sistema
-            if (Notification.permission === 'granted') {
-                new Notification('📢 Cliente com vencimento hoje!', {
-                    body: `${cliente.nome} - R$ ${cliente.valor.toFixed(2)}`,
-                    icon: 'https://cdn-icons-png.flaticon.com/512/190/190411.png'
-                });
-            }
-            
-            cliente.notificadoHoje = true;
-            localStorage.setItem('clientes_avancado', JSON.stringify(clientes));
-            
-            // Registrar no console
-            console.log(`🔔 Lembrete: ${cliente.nome} vence hoje - R$ ${cliente.valor}`);
+    const faturamentoMes = vendas.reduce((sum, v) => {
+        const dataVenda = new Date(v.dataVenda);
+        if (dataVenda.getMonth() === agora.getMonth() && dataVenda.getFullYear() === agora.getFullYear()) {
+            return sum + v.valor;
         }
+        return sum;
+    }, 0);
+    
+    document.getElementById('totalVendas').textContent = totalVendas;
+    document.getElementById('creditosAtivos').textContent = creditosAtivos;
+    document.getElementById('totalClientes').textContent = totalClientes;
+    document.getElementById('faturamentoMes').textContent = `R$ ${faturamentoMes.toFixed(2)}`;
+}
+
+// Verificar vencimentos e notificar
+function verificarVencimentos() {
+    vendas.forEach(venda => {
+        const diasRestantes = calcularDiasRestantes(venda.dataExpiracao);
+        
+        venda.clientes.forEach(cliente => {
+            // Notificar se vence hoje ou amanhã e ainda não foi notificado
+            if ((diasRestantes === 1 || diasRestantes === 0) && !cliente.notificado && diasRestantes >= 0) {
+                // Notificação do sistema
+                if (Notification.permission === 'granted') {
+                    new Notification(`⚠️ ${cliente.nome} - IPTV vence ${diasRestantes === 0 ? 'HOJE' : 'AMANHÃ'}!`, {
+                        body: `Crédito expira em ${diasRestantes} dias. Envie lembrete!`,
+                        icon: 'https://cdn-icons-png.flaticon.com/512/190/190411.png'
+                    });
+                }
+                cliente.notificado = true;
+                salvarDados();
+            } else if (diasRestantes > 1) {
+                // Resetar notificação quando renovar
+                cliente.notificado = false;
+            }
+        });
     });
     
+    renderizarVendas();
     atualizarDashboard();
 }
 
+// Salvar dados
+function salvarDados() {
+    localStorage.setItem('iptv_vendas', JSON.stringify(vendas));
+}
+
+// Formatar data
+function formatarData(data) {
+    if (!data) return 'N/A';
+    const partes = data.split('-');
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
 // Solicitar permissão de notificação
-function solicitarPermissaoNotificacao() {
+function solicitarNotificacao() {
     if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
         Notification.requestPermission();
     }
 }
 
-// Funções auxiliares
-function formatarData(data) {
-    if (!data) return 'N/A';
-    const d = new Date(data);
-    return d.toLocaleDateString('pt-BR');
-}
-
-function formatarTelefone(telefone) {
-    let numbers = telefone.replace(/\D/g, '');
-    if (numbers.length === 11) {
-        return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    }
-    return numbers;
-}
-
-// Inicializar sistema
+// Iniciar
 init();
 </script>
 
